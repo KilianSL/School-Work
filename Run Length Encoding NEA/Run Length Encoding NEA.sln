@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Run Length Encoding NEA", "Run Length Encoding NEA\Run Length Encoding NEA.csproj", "{2A54A6DC-F583-4CED-B616-7B2EE690EA77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A54A6DC-F583-4CED-B616-7B2EE690EA77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A54A6DC-F583-4CED-B616-7B2EE690EA77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A54A6DC-F583-4CED-B616-7B2EE690EA77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A54A6DC-F583-4CED-B616-7B2EE690EA77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
