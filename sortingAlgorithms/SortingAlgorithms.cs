@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace sortingAlgorithms
+namespace SortingAlgorithms
 {
-    public class BubbleSort  //performs a bubble sort on an array of integers - best for small lists - O(n^2) worst case
+    public class BubbleSort<T>  //performs a bubble sort on an array of integers - best for small lists - O(n^2) worst case
     {
         public int[] Sort(int[] arr)
         {
@@ -24,10 +21,10 @@ namespace sortingAlgorithms
                         flag = true;
                     }
                 }
-                /*if (flag == true)
+                if (flag == false)
                 {
                     break;
-                }*/
+                }
             }
             return arr;
         }
