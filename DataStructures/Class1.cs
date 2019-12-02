@@ -1,15 +1,14 @@
 ﻿using System;
 
-namespace QueueClass
+namespace DataStructures
 {
-
-    class Queue<T>
+    class Queue<T>  //standard static-length queue data structure
     {
         public int MaxSize;
         protected int front;
         protected int rear;
         protected int size;
-        public T[] data;
+        protected T[] data;
 
         public Queue(int maxsize)
         {
@@ -20,7 +19,6 @@ namespace QueueClass
             size = 0;
 
         }
-
         public void EnQueue(T item)  //adds a single item to the end of the queue
         {
             if (!IsFull())
@@ -34,7 +32,6 @@ namespace QueueClass
                 Console.WriteLine("Error - Queue Full");
             }
         }
-
         public void EnQueue(T[] items)  //adds an array of items to the back of the queue, until queue is full;
         {
             foreach (var item in items)
@@ -52,17 +49,15 @@ namespace QueueClass
                 }
             }
         }
-
         public T Peek()  //returns the item at the front of the queue, without modifying the queue
         {
             return data[front];
         }
-
         public T DeQueue()   //returns the item at the front of the queue and then removes it
         {
             if (!IsEmpty())
             {
-                
+
                 front += 1;
                 size -= 1;
                 return data[front - 1];
@@ -72,9 +67,8 @@ namespace QueueClass
                 Console.WriteLine("Error - Queue Empty");
                 return default(T);
             }
-            
-        }
 
+        }
         public bool IsFull()  //checks if the queue is full
         {
             if (size == MaxSize)
@@ -86,9 +80,8 @@ namespace QueueClass
                 return false;
             }
         }
-
         public bool IsEmpty()   //checks if the queue is empty
-        { 
+        {
             if (size == 0)
             {
                 return true;
@@ -98,39 +91,42 @@ namespace QueueClass
                 return false;
             }
         }
-
         public int GetSize() //returns the current size of the queue
         {
             return size;
         }
-
-        public void OutputData()  //outputs the data in the queue, in order
+        public T[] GetData(bool verbose = false)  //returns ALL data held in the array, regardless of pointers (WIP). Outputs data is verbose = true
         {
-            if (front <= rear)
+            if (verbose)
             {
-                for (int i = front; i <= rear; i++)
+                if (front <= rear)
                 {
-                    Console.Write(data[i] + " , ");
+                    for (int i = front; i <= rear; i++)
+                    {
+                        Console.Write(data[i] + " , ");
+                    }
                 }
+                else
+                {
+                    for (int i = front; i < MaxSize; i++)
+                    {
+                        Console.Write(data[i] + " , ");
+                    }
+                    for (int i = 0; i <= rear; i++)
+                    {
+                        Console.Write(data[i] + " , ");
+                    }
+                }
+                Console.WriteLine();
             }
-            else
-            {
-                for (int i = front; i < MaxSize; i++)
-                {
-                    Console.Write(data[i] + " , ");
-                }
-                for (int i = 0; i <= rear; i++)
-                {
-                    Console.Write(data[i] + " , ");
-                }
-            }
-            Console.WriteLine();
+            return data;
+            
         }
     }
 
-    class JumperQueue<T> : Queue<T>
+    class PriorityQueue<T> : Queue<T> //static-length queue data structure, with the option to have items jump to the front of the queue
     {
-        public JumperQueue(int maxsize) : base(maxsize)
+        public PriorityQueue(int maxsize) : base(maxsize)
         { }
 
         public void EnQueue(T item, bool priority = false)  //enqueues a new item, set to true to add to the front of the queue
@@ -197,23 +193,117 @@ namespace QueueClass
             }
         }
     }
-    class AuxCode
+
+    class Stack<T>  //standard static-length LIFO stack
     {
-        static void Main(string[] args)
+        private T[] data;
+        private int top;
+        private int size;
+        public int MaxSize;
+
+        public Stack(int maxsize)
         {
-            var q = new JumperQueue<int>(5);
-            q.EnQueue(3);
-            q.EnQueue(4);
-            q.EnQueue(2, true);
-            q.EnQueue(1, true);
-            q.OutputData();
-            q.DeQueue();
-            q.EnQueue(5);
-            q.EnQueue(0, true);
-            q.DeQueue();
-            int[] a = { 7, 8, 9 };
-            q.EnQueue(a, true);
-            q.OutputData();
+            MaxSize = maxsize;
+            data = new T[MaxSize];
+            top = -1;
+            size = 0;
+        }
+
+        public void Push(T item)
+        {
+            if (!IsFull())
+            {
+                top += 1;
+                size += 1;
+                data[top] = item;
+            }
+            else
+            {
+                Console.WriteLine("Error - Stack Overflow");
+            }
+        }
+
+        public void Push(T[] items)
+        {
+            foreach (T item in items)
+            {
+                if (!IsFull())
+                {
+                    top += 1;
+                    size += 1;
+                    data[top] = item;
+                }
+                else
+                {
+                    Console.WriteLine("Error - Stack Overflow");
+                    break;
+                }
+            }
+        }
+
+        public T Peek()
+        {
+            if (!IsEmpty())
+            {
+                return data[top];
+            }
+            else
+            {
+                Console.WriteLine("Error - Stack Empty");
+                return default;
+            }
+        }
+
+        public T Pop()
+        {
+            if (!IsEmpty())
+            {
+                top -= 1;
+                size -= 1;
+                return data[top + 1];
+            }
+            else
+            {
+                Console.WriteLine("Error - stack empty");
+                return default;
+            }
+        }
+
+        private bool IsFull()
+        {
+            if (size == MaxSize)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool IsEmpty()
+        {
+            if (size == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public T[] GetData(bool verbose = false)
+        {
+            if (verbose)
+            {
+                for (int i = 0; i <= top; i++)
+                {
+                    Console.Write(data[i] + " , ");
+                }
+            }
+            Console.WriteLine();
+            return data;
         }
     }
 }
