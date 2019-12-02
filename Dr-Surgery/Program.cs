@@ -16,7 +16,6 @@ namespace Dr_Surgery
             maxSize = maxsize;
             data = new T[maxsize];
         }
-
         public void EnQueue(T item)
         {
             if (!IsFull())
