@@ -47,7 +47,6 @@ namespace Run_Length_Encoding_NEA
             return int.Parse(selection);
         }  //displays the menu
 
-
         static void decodeASCII(string[] rle)  //displays ascii for a line-separated rle array
         {
             foreach (string line in rle)  //loops though each line of the ASCII pattern
@@ -140,7 +139,7 @@ namespace Run_Length_Encoding_NEA
             Console.WriteLine("{0} characters saved", lineCount - RLECount);
             Console.WriteLine("Compression ratio - {0}%", (RLECount / lineCount) * 100);
             Console.WriteLine();
-        }
+        }  //calculates the percentage size difference between the original and the compressed file
 
         static void convertToRLE(string path)  
         {
@@ -189,20 +188,30 @@ namespace Run_Length_Encoding_NEA
                     if (oneCharLine)
                     {
                         if (count < 10)
-                                {
-                                    RLELine = RLELine + "0" + count.ToString() + lastchar;
-                                }
-                                else
-                                {
-                                    RLELine = RLELine + count.ToString() + lastchar;
-                                }
+                        {
+                            RLELine = RLELine + "0" + count.ToString() + lastchar;
+                        }
+                        else
+                        {
+                            RLELine = RLELine + count.ToString() + lastchar;
+                        }
                     }
-                    
+                    if (RLELine[RLELine.Length - 1] != lastchar)
+                    {
+                         if (count < 10)
+                        {
+                            RLELine = RLELine + "0" + count.ToString() + lastchar;
+                        }
+                        else
+                        {
+                            RLELine = RLELine + count.ToString() + lastchar;
+                        }
+                    }
                     Console.WriteLine(RLELine);
                     RLELines.Add(RLELine);
                 }
                 calculateCompression(lines.ToArray(), RLELines.ToArray());
-                saveRLE(@"C:\Users\seifk007.319\Downloads\Run Length Encoding NEA-20191120T110737Z-001\Run Length Encoding NEA\Run Length Encoding NEA\RLE.txt", RLELines.ToArray());
+                saveRLE(@"C:\Users\seifk007.319\Documents\School-Work\Run Length Encoding NEA\Run Length Encoding NEA\sRLE.txt", RLELines.ToArray());
             }
         }
 
@@ -217,14 +226,13 @@ namespace Run_Length_Encoding_NEA
                 writer.Close();
             }
         }
-            
 
         static void Main(string[] args)
         {
             while (true)
             {
                 int selection = displayMenu();
-                string p1 = @"C:\Users\seifk007.319\Downloads\Run Length Encoding NEA-20191120T110737Z-001\Run Length Encoding NEA\Run Length Encoding NEA\art.txt";
+                string p1 = @"C:\Users\seifk007.319\Documents\School-Work\Run Length Encoding NEA\Run Length Encoding NEA\art.txt";
                 switch (selection)
                 {
                     case 1:
@@ -235,7 +243,7 @@ namespace Run_Length_Encoding_NEA
                         displayASCII(p1);
                         break;
                     case 3:
-                        string path = @"C:\Users\seifk007.319\Downloads\Run Length Encoding NEA-20191120T110737Z-001\Run Length Encoding NEA\Run Length Encoding NEA\RLE.txt";
+                        string path = @"C:\Users\seifk007.319\Documents\School-Work\Run Length Encoding NEA\Run Length Encoding NEA\sRLE.txt";
                         readRLEFromFile(path);
                         break;
                     case 4:
