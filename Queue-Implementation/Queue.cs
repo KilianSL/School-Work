@@ -5,7 +5,7 @@ namespace QueueClass
 
     class Queue<T>
     {
-        protected int maxSize { get; set; }
+        public int MaxSize;
         protected int front;
         protected int rear;
         protected int size;
@@ -13,7 +13,7 @@ namespace QueueClass
 
         public Queue(int maxsize)
         {
-            maxSize = maxsize;
+            MaxSize = maxsize;
             data = new T[maxsize];
             front = 0;
             rear = -1;
@@ -25,7 +25,7 @@ namespace QueueClass
         {
             if (!IsFull())
             {
-                rear = (rear + 1) % maxSize;
+                rear = (rear + 1) % MaxSize;
                 data[rear] = item;
                 size += 1;
             }
@@ -41,7 +41,7 @@ namespace QueueClass
             {
                 if (!IsFull())
                 {
-                    rear = (rear + 1) % maxSize;
+                    rear = (rear + 1) % MaxSize;
                     data[rear] = item;
                     size += 1;
                 }
@@ -77,7 +77,7 @@ namespace QueueClass
 
         public bool IsFull()  //checks if the queue is full
         {
-            if (size == maxSize)
+            if (size == MaxSize)
             {
                 return true;
             }
@@ -115,7 +115,7 @@ namespace QueueClass
             }
             else
             {
-                for (int i = front; i < maxSize; i++)
+                for (int i = front; i < MaxSize; i++)
                 {
                     Console.Write(data[i] + " , ");
                 }
@@ -141,7 +141,7 @@ namespace QueueClass
                 {
                     if (front == 0)
                     {
-                        front = maxSize - 1;
+                        front = MaxSize - 1;
                         data[front] = item;
                         size += 1;
                     }
@@ -173,7 +173,7 @@ namespace QueueClass
                     {
                         if (front == 0)
                         {
-                            front = maxSize - 1;
+                            front = MaxSize - 1;
                             data[front] = item;
                             size += 1;
                         }
