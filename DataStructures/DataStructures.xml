@@ -1,0 +1,257 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DataStructures</name>
+    </assembly>
+    <members>
+        <member name="T:DataStructures.Queue`1">
+            <summary>
+            Static-Length Queue Datastructure
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:DataStructures.Queue`1.#ctor(System.Int32)">
+            <summary>
+            Creates a new instance of the Queue datastructure
+            </summary>
+            <param name="maxsize">Maximum amount of elements that the Queue can hold</param>
+        </member>
+        <member name="M:DataStructures.Queue`1.EnQueue(`0)">
+            <summary>
+            Adds a specified item to the end of the queue.
+            </summary>
+            <param name="item">Item to enqueue</param>
+        </member>
+        <member name="M:DataStructures.Queue`1.EnQueue(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Adds a collection of items to the end of the queue.
+            </summary>
+            <param name="items">Collection of items to enqueue</param>
+        </member>
+        <member name="M:DataStructures.Queue`1.Peek">
+            <summary>
+            Returns the item at the front of the queue.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataStructures.Queue`1.DeQueue">
+            <summary>
+            Returns the item at the front of the queue, then removes it from the queue.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataStructures.Queue`1.IsFull">
+            <summary>
+            Checks if the queue is full.
+            </summary>
+            <returns>Returns true if the queue is full.</returns>
+        </member>
+        <member name="M:DataStructures.Queue`1.IsEmpty">
+            <summary>
+            Checks if the queue is empty.
+            </summary>
+            <returns>Returns true if the queue is empty.</returns>
+        </member>
+        <member name="M:DataStructures.Queue`1.GetSize">
+            <summary>
+            Getter function for the current size of the queue
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataStructures.Queue`1.GetData(System.Boolean)">
+            <summary>
+            Returns the data held in the queue as an array.
+            </summary>
+            <param name="verbose">True: Outputs queue to the console. Default false.</param>
+            <returns></returns>
+        </member>
+        <member name="T:DataStructures.PriorityQueue`1">
+            <summary>
+            Sub-Class of Queue that allows for priority items to enter at the front of the queue.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:DataStructures.PriorityQueue`1.#ctor(System.Int32)">
+            <summary>
+            Creates a new instance of the PriorityQueue datastructure.
+            </summary>
+            <param name="maxsize">Maximum amount of elements that the queue can hold</param>
+        </member>
+        <member name="M:DataStructures.PriorityQueue`1.EnQueue(`0,System.Boolean)">
+            <summary>
+            Adds a specified item to the queue
+            </summary>
+            <param name="item">Item to enqueue</param>
+            <param name="priority">If True, places the item at the front of the queue. Default False.</param>
+        </member>
+        <member name="M:DataStructures.PriorityQueue`1.EnQueue(System.Collections.Generic.IEnumerable{`0},System.Boolean)">
+            <summary>
+            Adds a collection of items to the queue
+            </summary>
+            <param name="items">Collection to enqueue</param>
+            <param name="priority">If True, places the items at the front of the queue. Default False.</param>
+        </member>
+        <member name="T:DataStructures.Stack`1">
+            <summary>
+            Static-Length Stack Datastructure
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:DataStructures.Stack`1.#ctor(System.Int32)">
+            <param name="maxsize">Maximum size of the stack.</param>
+        </member>
+        <member name="M:DataStructures.Stack`1.Push(`0)">
+            <summary>
+            Pushes a specified item on top of the stack.
+            </summary>
+            <param name="item">Item to push.</param>
+        </member>
+        <member name="M:DataStructures.Stack`1.Push(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Pushes a collection of items onto the stack.
+            </summary>
+            <param name="items">Collection to push.</param>
+        </member>
+        <member name="M:DataStructures.Stack`1.Peek">
+            <summary>
+            Returns the top item on the stack.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataStructures.Stack`1.Pop">
+            <summary>
+            Returns the top item on the stack, then removes it.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataStructures.Stack`1.IsFull">
+            <summary>
+            Returns True if the stack is full.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataStructures.Stack`1.IsEmpty">
+            <summary>
+            Returns True if the stack is empty.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataStructures.Stack`1.GetData(System.Boolean)">
+            <summary>
+            Returns the data held in the stack as an array.
+            </summary>
+            <param name="verbose">True: Outputs queue to the console. Default false.</param>
+            <returns></returns>
+        </member>
+        <member name="T:DataStructures.LinkedList`1">
+            <summary>
+            Dynamic-Length Single Linked List Datastructure
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:DataStructures.LinkedList`1.Count">
+            <summary>
+            Gets the number of items contained in the list.
+            </summary>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.#ctor">
+            <summary>
+            Initializes a new empty instance of LinkedList.
+            </summary>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Initializes a new instance of LinkedList that contains elements copied from the specified collection.
+            </summary>
+            <param name="collection">The collection who's elements are copied to the new list.</param>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.Add(`0)">
+            <summary>
+            Adds an object to the end of the list.
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Adds the elements of the specified collection to the end of the list.
+            </summary>
+            <param name="collection"></param>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.Insert(System.Int32,`0)">
+            <summary>
+            Inserts an element into the list at the specified index.
+            </summary>
+            <param name="index"></param>
+            <param name="item"></param>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.InsertRange(System.Int32,System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Inserts the elements of a collection into the List at the specified index.
+            </summary>
+            <param name="index"></param>
+            <param name="collection"></param>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.RemoveAt(System.Int32)">
+            <summary>
+            Removes the element at the specified index of the list.
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.Remove(`0)">
+             <summary>
+            Removes the first occurrence of a specific object from the List.
+             </summary>
+             <param name="item"></param>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.RemoveAll(`0)">
+            <summary>
+            Remove all occurrences of a specific object from the List.
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.RemoveRange(System.Int32,System.Int32)">
+            <summary>
+            Removes a range of elements from the List.
+            </summary>
+            <param name="start"></param>
+            <param name="end"></param>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.ToArray">
+            <summary>
+            Copies the elements of the List to a new array.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.Clear">
+            <summary>
+            Removes all elements from the list.
+            </summary>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.Contains(`0)">
+            <summary>
+            Determines whether an element is in the list.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.GetItemAt(System.Int32)">
+            <summary>
+            Gets the element at a specific index.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.IndexOf(`0)">
+            <summary>
+            Searches for the specified object and returns the zero-based index of the first occurrence within the entire List.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.DisplayList">
+            <summary>
+            Displays the list in the Console.
+            </summary>
+        </member>
+    </members>
+</doc>

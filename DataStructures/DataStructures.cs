@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DataStructures
 {
-    class Queue<T>  //standard static-length queue data structure
+    /// <summary>
+    /// Static-Length Queue Datastructure
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class Queue<T>
     {
         public int MaxSize;
         protected int front;
@@ -10,6 +15,10 @@ namespace DataStructures
         protected int size;
         protected T[] data;
 
+        /// <summary>
+        /// Creates a new instance of the Queue datastructure
+        /// </summary>
+        /// <param name="maxsize">Maximum amount of elements that the Queue can hold</param>
         public Queue(int maxsize)
         {
             MaxSize = maxsize;
@@ -19,7 +28,11 @@ namespace DataStructures
             size = 0;
 
         }
-        public void EnQueue(T item)  //adds a single item to the end of the queue
+        /// <summary>
+        /// Adds a specified item to the end of the queue.
+        /// </summary>
+        /// <param name="item">Item to enqueue</param>
+        public void EnQueue(T item)
         {
             if (!IsFull())
             {
@@ -32,9 +45,13 @@ namespace DataStructures
                 Console.WriteLine("Error - Queue Full");
             }
         }
-        public void EnQueue(T[] items)  //adds an array of items to the back of the queue, until queue is full;
+        /// <summary>
+        /// Adds a collection of items to the end of the queue.
+        /// </summary>
+        /// <param name="items">Collection of items to enqueue</param>
+        public void EnQueue(IEnumerable<T> items)
         {
-            foreach (var item in items)
+            foreach (T item in items)
             {
                 if (!IsFull())
                 {
@@ -49,11 +66,19 @@ namespace DataStructures
                 }
             }
         }
-        public T Peek()  //returns the item at the front of the queue, without modifying the queue
+        /// <summary>
+        /// Returns the item at the front of the queue.
+        /// </summary>
+        /// <returns></returns>
+        public T Peek()
         {
             return data[front];
         }
-        public T DeQueue()   //returns the item at the front of the queue and then removes it
+        /// <summary>
+        /// Returns the item at the front of the queue, then removes it from the queue.
+        /// </summary>
+        /// <returns></returns>
+        public T DeQueue()
         {
             if (!IsEmpty())
             {
@@ -69,7 +94,11 @@ namespace DataStructures
             }
 
         }
-        public bool IsFull()  //checks if the queue is full
+        /// <summary>
+        /// Checks if the queue is full.
+        /// </summary>
+        /// <returns>Returns true if the queue is full.</returns>
+        public bool IsFull()
         {
             if (size == MaxSize)
             {
@@ -80,6 +109,10 @@ namespace DataStructures
                 return false;
             }
         }
+        /// <summary>
+        /// Checks if the queue is empty.
+        /// </summary>
+        /// <returns>Returns true if the queue is empty.</returns>
         public bool IsEmpty()   //checks if the queue is empty
         {
             if (size == 0)
@@ -91,47 +124,79 @@ namespace DataStructures
                 return false;
             }
         }
-        public int GetSize() //returns the current size of the queue
+        /// <summary>
+        /// Getter function for the current size of the queue
+        /// </summary>
+        /// <returns></returns>
+        public int GetSize()
         {
             return size;
         }
+        /// <summary>
+        /// Returns the data held in the queue as an array.
+        /// </summary>
+        /// <param name="verbose">True: Outputs queue to the console. Default false.</param>
+        /// <returns></returns>
         public T[] GetData(bool verbose = false)  //returns ALL data held in the array, regardless of pointers (WIP). Outputs data is verbose = true
         {
-            if (verbose)
-            {
+            List<T> ts = new List<T>();
                 if (front <= rear)
                 {
                     for (int i = front; i <= rear; i++)
                     {
-                        Console.Write(data[i] + " , ");
+                        if (verbose)
+                        {
+                            Console.Write(data[i] + " , ");
+                        }
+                        ts.Add(data[i]);
                     }
                 }
                 else
                 {
                     for (int i = front; i < MaxSize; i++)
                     {
-                        Console.Write(data[i] + " , ");
+                        if (verbose)
+                        {
+                            Console.Write(data[i] + " , ");
+                        }
+                        ts.Add(data[i]);
                     }
                     for (int i = 0; i <= rear; i++)
                     {
-                        Console.Write(data[i] + " , ");
+                        if (verbose)
+                        {
+                            Console.Write(data[i] + " , ");
+                        }                       
+                        ts.Add(data[i]);
                     }
                 }
                 Console.WriteLine();
-            }
-            return data;
+            return ts.ToArray();
             
         }
     }
 
-    class PriorityQueue<T> : Queue<T> //static-length queue data structure, with the option to have items jump to the front of the queue
+    /// <summary>
+    /// Sub-Class of Queue that allows for priority items to enter at the front of the queue.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class PriorityQueue<T> : Queue<T> //static-length queue data structure, with the option to have items jump to the front of the queue
     {
+        /// <summary>
+        /// Creates a new instance of the PriorityQueue datastructure.
+        /// </summary>
+        /// <param name="maxsize">Maximum amount of elements that the queue can hold</param>
         public PriorityQueue(int maxsize) : base(maxsize)
         { }
 
-        public void EnQueue(T item, bool priority = false)  //enqueues a new item, set to true to add to the front of the queue
+        /// <summary>
+        /// Adds a specified item to the queue
+        /// </summary>
+        /// <param name="item">Item to enqueue</param>
+        /// <param name="priority">If True, places the item at the front of the queue. Default False.</param>
+        public void EnQueue(T item, bool priority = false)
         {
-            if (priority)  //places an item at the front of the queue
+            if (priority) 
             {
                 if (!IsFull())
                 {
@@ -159,7 +224,12 @@ namespace DataStructures
             }
         }
 
-        public void EnQueue(T[] items, bool priority = false)  //enqueues an array of items, set to true to add to front of queue
+        /// <summary>
+        /// Adds a collection of items to the queue
+        /// </summary>
+        /// <param name="items">Collection to enqueue</param>
+        /// <param name="priority">If True, places the items at the front of the queue. Default False.</param>
+        public void EnQueue(IEnumerable<T> items, bool priority = false)  //enqueues an array of items, set to true to add to front of queue
         {
             if (priority)
             {
@@ -194,13 +264,18 @@ namespace DataStructures
         }
     }
 
-    class Stack<T>  //standard static-length LIFO stack
+    /// <summary>
+    /// Static-Length Stack Datastructure
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class Stack<T>
     {
         private T[] data;
         private int top;
         private int size;
         public int MaxSize;
-
+        
+        /// <param name="maxsize">Maximum size of the stack.</param>
         public Stack(int maxsize)
         {
             MaxSize = maxsize;
@@ -209,6 +284,10 @@ namespace DataStructures
             size = 0;
         }
 
+        /// <summary>
+        /// Pushes a specified item on top of the stack.
+        /// </summary>
+        /// <param name="item">Item to push.</param>
         public void Push(T item)
         {
             if (!IsFull())
@@ -223,7 +302,11 @@ namespace DataStructures
             }
         }
 
-        public void Push(T[] items)
+        /// <summary>
+        /// Pushes a collection of items onto the stack.
+        /// </summary>
+        /// <param name="items">Collection to push.</param>
+        public void Push(IEnumerable<T> items)
         {
             foreach (T item in items)
             {
@@ -241,6 +324,10 @@ namespace DataStructures
             }
         }
 
+        /// <summary>
+        /// Returns the top item on the stack.
+        /// </summary>
+        /// <returns></returns>
         public T Peek()
         {
             if (!IsEmpty())
@@ -254,6 +341,10 @@ namespace DataStructures
             }
         }
 
+        /// <summary>
+        /// Returns the top item on the stack, then removes it.
+        /// </summary>
+        /// <returns></returns>
         public T Pop()
         {
             if (!IsEmpty())
@@ -269,6 +360,10 @@ namespace DataStructures
             }
         }
 
+        /// <summary>
+        /// Returns True if the stack is full.
+        /// </summary>
+        /// <returns></returns>
         private bool IsFull()
         {
             if (size == MaxSize)
@@ -281,6 +376,10 @@ namespace DataStructures
             }
         }
 
+        /// <summary>
+        /// Returns True if the stack is empty.
+        /// </summary>
+        /// <returns></returns>
         private bool IsEmpty()
         {
             if (size == 0)
@@ -293,35 +392,59 @@ namespace DataStructures
             }
         }
 
+        /// <summary>
+        /// Returns the data held in the stack as an array.
+        /// </summary>
+        /// <param name="verbose">True: Outputs queue to the console. Default false.</param>
+        /// <returns></returns>
         public T[] GetData(bool verbose = false)
         {
-            if (verbose)
-            {
+            List<T> ts = new List<T>();
+            
                 for (int i = 0; i <= top; i++)
                 {
-                    Console.Write(data[i] + " , ");
+                    if (verbose)
+                    {
+                        Console.Write(data[i] + " , ");
+                    }
+                    ts.Add(data[i]);
                 }
-            }
+            
             Console.WriteLine();
-            return data;
+            return ts.ToArray();
         }
     }
 
-    class LinkedList<T>  //Simple linked list
+    /// <summary>
+    /// Dynamic-Length Single Linked List Datastructure
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class LinkedList<T>  //Simple linked list
     {
 
         //c in all instances is a temporary variable used to indicate the Currrent node that the method is processing
-
+        /// <summary>
+        /// Gets the number of items contained in the list.
+        /// </summary>
         public int Count { get; set; }  //amount of nodes in the list
         private Node head;  //first node in the list
+        
+        /// <summary>
+        /// Initializes a new empty instance of LinkedList.
+        /// </summary>
         public LinkedList()   //default constructor 
         {
             head = new Node(default);  //head stores no data (default T) - merely the beginning of the list
             Count = 0;
         }
 
-        public LinkedList(IEnumerable<T> collection) //creates a new instance of list filled with the specified collection
+        /// <summary>
+        /// Initializes a new instance of LinkedList that contains elements copied from the specified collection.
+        /// </summary>
+        /// <param name="collection">The collection who's elements are copied to the new list.</param>
+        public LinkedList(IEnumerable<T> collection) 
         {
+            List<T> ts = new List<T>();
             head = new Node(default);
             Count = 0;
             AddRange(collection);
@@ -338,7 +461,11 @@ namespace DataStructures
             }
         }
 
-        public void Add(T item)  //adds an item to the end of the list
+        /// <summary>
+        /// Adds an object to the end of the list.
+        /// </summary>
+        /// <param name="item"></param>
+        public void Add(T item)
         {
             Node n = head;
             while (n.Next != null)  //iterates until the last node in the list is found
@@ -349,6 +476,10 @@ namespace DataStructures
             Count += 1;
         }
 
+        /// <summary>
+        /// Adds the elements of the specified collection to the end of the list.
+        /// </summary>
+        /// <param name="collection"></param>
         public void AddRange(IEnumerable<T> collection)  //adds a collection of items to the list
         {
             foreach (var item in collection)
@@ -357,7 +488,12 @@ namespace DataStructures
             }
         }
 
-        public void InsertAt(int index, T item)  //inserts an item in the specified position in the list (index from 0)
+        /// <summary>
+        /// Inserts an element into the list at the specified index.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="item"></param>
+        public void Insert(int index, T item)  //inserts an item in the specified position in the list (index from 0)
         {
             if (index <= Count)
             {
@@ -375,7 +511,12 @@ namespace DataStructures
             }
         }
 
-        public void InsertCollection(int index, IEnumerable<T> collection) //inserts a collection of items at the specified index
+        /// <summary>
+        /// Inserts the elements of a collection into the List at the specified index.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="collection"></param>
+        public void InsertRange(int index, IEnumerable<T> collection)
         {
             if (index <= Count)
             {
@@ -397,7 +538,11 @@ namespace DataStructures
             }
         }
 
-        public void RemoveAt(int index)  //deletes an item at the specified position (index from 0)
+        /// <summary>
+        /// Removes the element at the specified index of the list.
+        /// </summary>
+        /// <param name="index"></param>
+        public void RemoveAt(int index) 
         {
             if (index < Count)
             {
@@ -415,7 +560,11 @@ namespace DataStructures
             }
         }
 
-        public void Remove(T item)  //removes the first instance of the specified item
+        /// <summary>
+        ///Removes the first occurrence of a specific object from the List.
+        /// </summary>
+        /// <param name="item"></param>
+        public void Remove(T item)
         {
             Node c = head;
             for (int i = 0; i <= Count; i++)
@@ -430,7 +579,11 @@ namespace DataStructures
             }
         }
 
-        public void RemoveAll(T item) //removes all instances of the specified item
+        /// <summary>
+        /// Remove all occurrences of a specific object from the List.
+        /// </summary>
+        /// <param name="item"></param>
+        public void RemoveAll(T item)
         {
             Node c = head;
             do
@@ -446,12 +599,21 @@ namespace DataStructures
 
         }
 
+        /// <summary>
+        /// Removes a range of elements from the List.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
         public void RemoveRange(int start, int end) //removes all items between the two specified indicies (inclusive)
         {
             getNodeAt(start - 1).Next = getNodeAt(end + 1);
         }
 
-        public T[] ToArray() //returns an array of T
+        /// <summary>
+        /// Copies the elements of the List to a new array.
+        /// </summary>
+        /// <returns></returns>
+        public T[] ToArray()
         {
             T[] arr = new T[Count];
             Node c = head.Next;
@@ -463,11 +625,19 @@ namespace DataStructures
             return arr;
         }
 
-        public void Clear() //removes every item from the list
+        /// <summary>
+        /// Removes all elements from the list.
+        /// </summary>
+        public void Clear()
         {
             head.Next = null;
         }
 
+        /// <summary>
+        /// Determines whether an element is in the list.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public bool Contains(T item)  //checks if the list contains a specified item
         {
             Node c = head.Next;
@@ -482,7 +652,12 @@ namespace DataStructures
             return false;
         }
 
-        public T GetItemAt(int index) //gets the data at a specified index
+        /// <summary>
+        /// Gets the element at a specific index.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public T GetItemAt(int index)
         {
             Node c = head;
             for (int i = 0; i <= index; i++)
@@ -492,7 +667,7 @@ namespace DataStructures
             return c.Data;
         }
 
-        private Node getNodeAt(int index)
+        private Node getNodeAt(int index) //returns the node at a specific index
         {
             Node c = head;
             for (int i = 0; i <= index; i++)
@@ -501,6 +676,12 @@ namespace DataStructures
             }
             return c;
         }
+
+        /// <summary>
+        /// Searches for the specified object and returns the zero-based index of the first occurrence within the entire List.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public int IndexOf(T item)  //returns the 0-based index of the specified item (-1 if not found)
         {
             Node c = head;
@@ -518,6 +699,9 @@ namespace DataStructures
             return -1;
         }
 
+        /// <summary>
+        /// Displays the list in the Console.
+        /// </summary>
         public void DisplayList()
         {
             Node c = head.Next;

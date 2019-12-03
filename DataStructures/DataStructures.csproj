@@ -4,4 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\kilian\source\Git Repos\School-Work\DataStructures\DataStructures.xml</DocumentationFile>
+  </PropertyGroup>
+
 </Project>
