@@ -306,4 +306,228 @@ namespace DataStructures
             return data;
         }
     }
+
+    class LinkedList<T>  //Simple linked list
+    {
+
+        //c in all instances is a temporary variable used to indicate the Currrent node that the method is processing
+
+        public int Count { get; set; }  //amount of nodes in the list
+        private Node head;  //first node in the list
+        public LinkedList()   //default constructor 
+        {
+            head = new Node(default);  //head stores no data (default T) - merely the beginning of the list
+            Count = 0;
+        }
+
+        public LinkedList(IEnumerable<T> collection) //creates a new instance of list filled with the specified collection
+        {
+            head = new Node(default);
+            Count = 0;
+            AddRange(collection);
+        }
+        private class Node  //Node in the list, stores data and a pointer to the next node. 
+        {
+            public T Data { get; set; }
+            public Node Next { get; set; }
+
+            public Node(T data, Node next = null)
+            {
+                Data = data;
+                Next = next;
+            }
+        }
+
+        public void Add(T item)  //adds an item to the end of the list
+        {
+            Node n = head;
+            while (n.Next != null)  //iterates until the last node in the list is found
+            {
+                n = n.Next;
+            }
+            n.Next = new Node(item);
+            Count += 1;
+        }
+
+        public void AddRange(IEnumerable<T> collection)  //adds a collection of items to the list
+        {
+            foreach (var item in collection)
+            {
+                Add(item);
+            }
+        }
+
+        public void InsertAt(int index, T item)  //inserts an item in the specified position in the list (index from 0)
+        {
+            if (index <= Count)
+            {
+                Node c = head;
+                for (int i = 0; i < index; i++)
+                {
+                    c = c.Next;  //cycles to the node before the index to be replaced
+                }
+                c.Next = new Node(item, c.Next);  //inserts a new node between c and c.next
+                Count += 1;
+            }
+            else
+            {
+                Console.WriteLine("Null pointer exception - Cannot insert beyond last node");
+            }
+        }
+
+        public void InsertCollection(int index, IEnumerable<T> collection) //inserts a collection of items at the specified index
+        {
+            if (index <= Count)
+            {
+                Node c = head;
+                for (int i = 0; i < index; i++)
+                {
+                    c = c.Next;  //cycles to the node before the index to be replaced
+                }
+                foreach (var item in collection)
+                {
+                    c.Next = new Node(item, c.Next);  //inserts a new node between c and c.next
+                    Count += 1;
+                    c = c.Next;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Null pointer exception - Cannot insert beyond last node");
+            }
+        }
+
+        public void RemoveAt(int index)  //deletes an item at the specified position (index from 0)
+        {
+            if (index < Count)
+            {
+                Node c = head;
+                for (int i = 0; i < index; i++)  //iterates until the node before the node to be removed
+                {
+                    c = c.Next;
+                }
+                c.Next = c.Next.Next;  //removes the next node from the chain, changing the link to the node after it
+                Count -= 1;
+            }
+            else
+            {
+                Console.WriteLine("Null Pointer Exception - No item at {0}", index);
+            }
+        }
+
+        public void Remove(T item)  //removes the first instance of the specified item
+        {
+            Node c = head;
+            for (int i = 0; i <= Count; i++)
+            {
+                if (c.Next.Data.Equals(item))
+                {
+                    c.Next = c.Next.Next;
+                    Count -= 1;
+                    break;
+                }
+                c = c.Next;
+            }
+        }
+
+        public void RemoveAll(T item) //removes all instances of the specified item
+        {
+            Node c = head;
+            do
+            {
+                c = c.Next;
+                if (c.Next.Data.Equals(item))
+                {
+                    c.Next = c.Next.Next;
+                    Count -= 1;
+                }
+
+            } while (c.Next != null);
+
+        }
+
+        public void RemoveRange(int start, int end) //removes all items between the two specified indicies (inclusive)
+        {
+            getNodeAt(start - 1).Next = getNodeAt(end + 1);
+        }
+
+        public T[] ToArray() //returns an array of T
+        {
+            T[] arr = new T[Count];
+            Node c = head.Next;
+            for (int i = 0; i < Count; i++)
+            {
+                arr[i] = c.Data;
+                c = c.Next;
+            }
+            return arr;
+        }
+
+        public void Clear() //removes every item from the list
+        {
+            head.Next = null;
+        }
+
+        public bool Contains(T item)  //checks if the list contains a specified item
+        {
+            Node c = head.Next;
+            do
+            {
+                if (c.Data.Equals(item))
+                {
+                    return true;
+                }
+                c = c.Next;
+            } while (c.Next != null);
+            return false;
+        }
+
+        public T GetItemAt(int index) //gets the data at a specified index
+        {
+            Node c = head;
+            for (int i = 0; i <= index; i++)
+            {
+                c = c.Next;
+            }
+            return c.Data;
+        }
+
+        private Node getNodeAt(int index)
+        {
+            Node c = head;
+            for (int i = 0; i <= index; i++)
+            {
+                c = c.Next;
+            }
+            return c;
+        }
+        public int IndexOf(T item)  //returns the 0-based index of the specified item (-1 if not found)
+        {
+            Node c = head;
+            for (int i = 0; i <= Count; i++)
+            {
+                if (c.Data.Equals(item))
+                {
+                    return i - 1;
+                }
+                else
+                {
+                    c = c.Next;
+                }
+            }
+            return -1;
+        }
+
+        public void DisplayList()
+        {
+            Node c = head.Next;
+            while (c.Next != null)
+            {
+                Console.Write(c.Data + " ");
+                c = c.Next;
+            }
+            Console.WriteLine(c.Data + " ");
+
+        }
+    }
 }
