@@ -537,6 +537,18 @@ namespace DataStructures
                 Console.WriteLine("Null pointer exception - Cannot insert beyond last node");
             }
         }
+		
+		public bool IsEmpty()
+		{
+			if (head.Next == null)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 
         /// <summary>
         /// Removes the element at the specified index of the list.
