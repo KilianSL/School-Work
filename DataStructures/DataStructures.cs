@@ -625,8 +625,41 @@ namespace DataStructures
         }
 
         /// <summary>
-        /// Sorts the linked list if it is a sortable type.
+        /// Performs a bubble sort of the data in the list
         /// </summary>
+        public void Sort()
+        {
+            int bound = Count - 1;
+
+            bool done = false;
+            int swapped;
+            do
+            {
+                var c = head.Next;
+                swapped = -1;
+                for (int i = 0; i < bound; i++)
+                {
+
+                    if (c.Data.CompareTo(c.Next.Data) >= 0)
+                    {
+                        T temp = c.Data;
+                        c.Data = c.Next.Data;
+                        c.Next.Data = temp;
+                        swapped = i;
+                    }
+                    c = c.Next;
+                }
+                if (swapped < 0)
+                {
+                    done = true;
+                }
+                else
+                {
+                    bound = swapped;
+                }
+            } while (!done);
+
+        }
 
         /// <summary>
         /// Copies the elements of the List to a new array.
