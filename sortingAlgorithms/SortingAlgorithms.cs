@@ -118,7 +118,7 @@ namespace SortingAlgorithms
             return arr;
         }
         public int[] Sort(int[] arr)
-        {
+        {   
             int n = arr.Length;
             mergeSort(arr, 0, n - 1);
             return arr;

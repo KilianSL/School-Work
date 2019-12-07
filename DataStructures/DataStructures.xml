@@ -191,6 +191,12 @@
             <param name="index"></param>
             <param name="collection"></param>
         </member>
+        <member name="M:DataStructures.LinkedList`1.IsEmpty">
+            <summary>
+            Returns true if the list has no elements
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:DataStructures.LinkedList`1.RemoveAt(System.Int32)">
             <summary>
             Removes the element at the specified index of the list.
@@ -215,6 +221,11 @@
             </summary>
             <param name="start"></param>
             <param name="end"></param>
+        </member>
+        <member name="M:DataStructures.LinkedList`1.Sort">
+            <summary>
+            Sorts the linked list if it is a sortable type.
+            </summary>
         </member>
         <member name="M:DataStructures.LinkedList`1.ToArray">
             <summary>

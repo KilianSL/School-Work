@@ -419,7 +419,7 @@ namespace DataStructures
     /// Dynamic-Length Single Linked List Datastructure
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class LinkedList<T>  //Simple linked list
+    public class LinkedList<T> where T : IComparable //Simple linked list
     {
 
         //c in all instances is a temporary variable used to indicate the Currrent node that the method is processing
@@ -444,7 +444,6 @@ namespace DataStructures
         /// <param name="collection">The collection who's elements are copied to the new list.</param>
         public LinkedList(IEnumerable<T> collection) 
         {
-            List<T> ts = new List<T>();
             head = new Node(default);
             Count = 0;
             AddRange(collection);
@@ -538,6 +537,10 @@ namespace DataStructures
             }
         }
 		
+        /// <summary>
+        /// Returns true if the list has no elements
+        /// </summary>
+        /// <returns></returns>
 		public bool IsEmpty()
 		{
 			if (head.Next == null)
@@ -620,6 +623,10 @@ namespace DataStructures
         {
             getNodeAt(start - 1).Next = getNodeAt(end + 1);
         }
+
+        /// <summary>
+        /// Sorts the linked list if it is a sortable type.
+        /// </summary>
 
         /// <summary>
         /// Copies the elements of the List to a new array.
