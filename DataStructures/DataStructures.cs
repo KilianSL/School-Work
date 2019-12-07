@@ -733,4 +733,135 @@ namespace DataStructures
 
         }
     }
+
+    /// <summary>
+    /// Implementation of the Queue ADT using a single-linked list
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class ListQueue<T> where T : IComparable
+    {
+        /// <summary>
+        /// Data stored within the queue
+        /// </summary>
+        protected LinkedList<T> Data;
+        /// <summary>
+        /// Maximum size of the queue (if needed)
+        /// </summary>
+        protected int maxSize;
+
+        /// <summary>
+        /// Initializes a new instance of ListQueue
+        /// </summary>
+        public ListQueue(int MaxSize = -1)
+        {
+            Data = new LinkedList<T>();
+            maxSize = MaxSize;
+        }
+
+        /// <summary>
+        /// Adds a specified item to the end of the queue.
+        /// </summary>
+        /// <param name="item">Item to enqueue</param>
+        public void EnQueue(T item)
+        {
+            if (!IsFull())
+            {
+                Data.Add(item);
+            }
+            else
+            {
+                Console.WriteLine("Error - Queue Full");
+            }
+        }
+        /// <summary>
+        /// Adds a collection of items to the end of the queue.
+        /// </summary>
+        /// <param name="items">Collection of items to enqueue</param>
+        public void EnQueue(IEnumerable<T> items)
+        {
+            foreach (var item in items)
+            {
+                if (!IsFull())
+                {
+                    Data.Add(item);
+                }
+                else
+                {
+                    Console.WriteLine("Error - Queue Full");
+                    break;
+                }
+            }
+        }
+        /// <summary>
+        /// Returns the item at the front of the queue.
+        /// </summary>
+        /// <returns></returns>
+        public T Peek()
+        {
+            return Data.GetItemAt(0);
+        }
+        /// <summary>
+        /// Returns the item at the front of the queue, then removes it from the queue.
+        /// </summary>
+        /// <returns></returns>
+        public T DeQueue()
+        {
+            if (!IsEmpty())
+            {
+                var a = Data.GetItemAt(0);
+                Data.RemoveAt(0);
+                return a;
+            }
+            else
+            {
+                Console.WriteLine("Error - Queue Empty");
+                return default(T);
+            }
+
+        }
+        /// <summary>
+        /// Checks if the queue is empty.
+        /// </summary>
+        /// <returns>Returns true if the queue is empty.</returns>
+        public bool IsEmpty()   //checks if the queue is empty
+        {
+            return Data.IsEmpty();
+        }
+        /// <summary>
+        /// Checks if the queue is full.
+        /// </summary>
+        /// <returns>Returns true if the queue is full.</returns>
+        public bool IsFull()
+        {
+            if (Data.Count == maxSize)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Getter function for the current size of the queue
+        /// </summary>
+        /// <returns></returns>
+        public int GetSize()
+        {
+            return Data.Count;
+        }
+        /// <summary>
+        /// Returns the data held in the queue as an array.
+        /// </summary>
+        /// <param name="verbose">True: Outputs queue to the console. Default false.</param>
+        /// <returns></returns>
+        public T[] GetData(bool verbose = false)  //returns ALL data held in the array, regardless of pointers (WIP). Outputs data is verbose = true
+        {
+            if (verbose)
+            {
+                Data.DisplayList();
+            }
+            return Data.ToArray();
+        }
+    }
 }
