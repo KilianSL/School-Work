@@ -8,19 +8,19 @@ namespace Graph
     class Vertex
     {
         public string Data;
-        public DataStructures.LinkedList<int> Connections;
+        public Dictionary<int, double> Connections;  //Maps graph edges in format Destination : Weight
 
-        public Vertex(string data, int[] c)
+        public Vertex(string data)
         {
             Data = data;
-            Connections = new DataStructures.LinkedList<int>(c);
+            Connections = new Dictionary<int, double>();
         }
     }
     class Graph
     {
         //fields
         public int Size; //number of nodes in the graph
-        public DataStructures.LinkedList<Vertex> verticies;
+        public DataStructures.LinkedList<Vertex> verticies;  //Linked list holding all the verticies that make up the graph
 
         //classes
         
@@ -32,33 +32,59 @@ namespace Graph
         }
 
         //Methods
-        public void AddVertex(string data, params int[] connections)  //adds a vertex to the graph
+        public void AddVertex(string data)  //adds a vertex to the graph
         {
-            verticies.Add(new Vertex(data, connections));
+            verticies.Add(new Vertex(data));
             Size++;
         }
 
-        public void AddConnections(string data, params int[] connections)  //adds connections to the specified vertex
+        public void AddConnection(string from, string to, double weight)  //adds a connection to the specified vertex. 
         {
             int i = 0;
             var v = verticies[i];
-            while (v.Data != data && i < verticies.Count)
+            while (v.Data != from && i < verticies.Count)
             {
                 v = verticies[i];
                 i++;
             }
-            v.Connections.AddRange(connections);
+            v.Connections.Add(GetVertexIndex(to), weight);
         }
 
-        public override string ToString()
+        public int GetVertexIndex(string data) //returns the index in verticies of a given piece of data
+        {
+            int index = -1;
+            for (int i = 0; i < verticies.Count; i++)
+            {
+                if (verticies[i].Data == data)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            return index;
+        }
+
+        public void FindShortestPath(string from, string to)  //dijkstas SPF algorithm, returns shortest path between 2 nodes
+        {
+            double[] distances = new double[verticies.Count];  //distances from source vertex. 1-1 mapping with verticies linked list (i.e. distances[i] is the distance to verticies[i])
+            int i_from = GetVertexIndex(from);  //index of from and to verticies
+            int i_to = GetVertexIndex(to);
+            for (int i = 0; i < distances.Length; i++)
+            {
+                distances[i] = double.PositiveInfinity;
+            }
+            distances[i_from] = 0;
+        }
+
+        public override string ToString()  //Outputs a string representation of the graph in format {Vertex} --> [{Vertex} : {Weight}]
         {
             string str = "";
             foreach (var vertex in verticies.ToArray())
             {
                 str = str + $"{vertex.Data} --> ";
-                for (int i = 0; i < vertex.Connections.Count; i++)
+                foreach (var subVertex in vertex.Connections.Keys)
                 {
-                    str = str + verticies[vertex.Connections[i]].Data + " ";
+                    str = str + $" [{verticies[subVertex].Data} : {vertex.Connections[subVertex]}] ";
                 }
                 str = str + Environment.NewLine;
             }
