@@ -55,7 +55,12 @@ namespace Graph
             //Console.WriteLine(g.ToString());
 
             Graph wallingford = BuildGraph();
-            Console.WriteLine(wallingford.ToString());
+            //Console.WriteLine(wallingford.ToString());
+            PriorityQueue q = new PriorityQueue();
+            q.EnQueue("a", 1);
+            q.EnQueue("b", 2);
+            q.EnQueue("c", 0);
+            Console.WriteLine(q.ToString());
         }
     }
 }
