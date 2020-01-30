@@ -54,13 +54,14 @@ namespace Graph
             //g.AddConnection("c", "b", 2);
             //Console.WriteLine(g.ToString());
 
-            Graph wallingford = BuildGraph();
+            //Graph wallingford = BuildGraph();
             //Console.WriteLine(wallingford.ToString());
+
+            //Priority Queue Testing
             PriorityQueue q = new PriorityQueue();
+            
             q.EnQueue("a", 1);
-            q.EnQueue("b", 2);
-            q.EnQueue("c", 0);
-            Console.WriteLine(q.ToString());
+            Console.WriteLine(q.IsEmpty());
         }
     }
 }
