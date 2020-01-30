@@ -60,8 +60,12 @@ namespace Graph
             //Priority Queue Testing
             PriorityQueue q = new PriorityQueue();
             
-            q.EnQueue("a", 1);
+            q.EnQueue("d", 3);
+            q.EnQueue("a", 2);
+            q.EnQueue("c", 2);
+            q.EnQueue("b", 1);
             Console.WriteLine(q.IsEmpty());
+            Console.WriteLine(q.ToString());
         }
     }
 }

@@ -41,14 +41,50 @@ namespace Graph
             }
         }
 
-        public void EnQueue(string item, int priority)
+        public void EnQueue(string item, int priority=0)
         {
             Node n = Head;
             while (n.Next != null)
             {
+                if (n.Next.Priority > priority)
+                {
+                    break;
+                }
                 n = n.Next;
             }
-            n.Next = new Node("");
+            if (n.Next == null)
+            {
+                n.Next = new Node(item, priority);
+            }
+            else
+            {
+                Node next_n = n.Next;
+                n.Next = new Node(item, priority, next_n);
+            }
+            Count++;
+        }
+
+        public void EnQueue(IEnumerable<string> items, int priority = 0)
+        {
+            foreach (var item in items)
+            {
+                EnQueue(item, priority);
+            }
+        } //overload to enqueue collection of items
+
+        public string DeQueue()
+
+        public override string ToString()
+        {
+            string str = "";
+            Node n = Head;
+            while (n.Next != null)
+            {
+                n = n.Next;
+                str = str + $"[P:{n.Priority}  :  {n.Data}]";
+                str = str + Environment.NewLine;
+            }
+            return str;
         }
     }
 }
