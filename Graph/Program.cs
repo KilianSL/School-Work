@@ -44,28 +44,9 @@ namespace Graph
         }
         static void Main(string[] args)
         {
-            //Graph g = new Graph();   //simple graph with 3 nodes. Structure [A-->B:1,C:3], [B-->C:2], [C-->B:2]
-            //g.AddVertex("a");
-            //g.AddVertex("b");
-            //g.AddVertex("c");
-            //g.AddConnection("a", "b", 1);
-            //g.AddConnection("a", "c", 3);
-            //g.AddConnection("b", "c", 2);
-            //g.AddConnection("c", "b", 2);
-            //Console.WriteLine(g.ToString());
-
-            //Graph wallingford = BuildGraph();
-            //Console.WriteLine(wallingford.ToString());
-
-            //Priority Queue Testing
-            PriorityQueue q = new PriorityQueue();
-            
-            q.EnQueue("d", 3);
-            q.EnQueue("a", 2);
-            q.EnQueue("c", 2);
-            q.EnQueue("b", 1);
-            Console.WriteLine(q.IsEmpty());
-            Console.WriteLine(q.ToString());
+            Graph wallingford = BuildGraph();
+            Console.WriteLine(wallingford.ToString());
+            wallingford.FindShortestPath("school", "market");
         }
     }
 }

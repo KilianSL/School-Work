@@ -66,7 +66,30 @@ namespace Graph
 
         public void FindShortestPath(string from, string to)  //dijkstas SPF algorithm, returns shortest path between 2 nodes
         {
+            double[] dist = new double[verticies.Count];
+            PriorityQueue Q = new PriorityQueue();
+            for (int i = 0; i < verticies.Count; i++)
+            {
+                if (verticies.GetItemAt(i).Data != from)
+                {
+                    dist[i] = double.PositiveInfinity ;
+                    Q.EnQueue(verticies.GetItemAt(i).Data, double.PositiveInfinity);
+                }
+                else
+                {
+                    dist[i] = 0;
+                    Q.EnQueue(verticies.GetItemAt(i).Data, 0);
+                }
+            }
 
+            while (!Q.IsEmpty())
+            {
+                Vertex u = verticies.GetItemAt(GetVertexIndex(Q.Peek()));
+                foreach (var node in u.Connections.Keys)
+                {
+                    double alt = 
+                }
+            }
         }
 
         public override string ToString()  //Outputs a string representation of the graph in format {Vertex} --> [{Vertex} : {Weight}]

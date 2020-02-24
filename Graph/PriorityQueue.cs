@@ -6,16 +6,16 @@ namespace Graph
 { 
     class PriorityQueue
     {
-        public int Count { get; set; }
+        public double Count { get; set; }
         private Node Head;
 
         protected class Node
         {
             public string Data;
             public Node Next;
-            public int Priority;
+            public double Priority;
 
-            public Node(string data, int priority = 0, Node next = null)
+            public Node(string data, double priority = 0, Node next = null)
             {
                 Data = data;
                 Priority = priority;
@@ -41,7 +41,7 @@ namespace Graph
             }
         }
 
-        public void EnQueue(string item, int priority=0)
+        public void EnQueue(string item, double priority=0)
         {
             Node n = Head;
             while (n.Next != null)
@@ -64,7 +64,7 @@ namespace Graph
             Count++;
         }
 
-        public void EnQueue(IEnumerable<string> items, int priority = 0)
+        public void EnQueue(IEnumerable<string> items, double priority = 0)
         {
             foreach (var item in items)
             {
@@ -72,7 +72,31 @@ namespace Graph
             }
         } //overload to enqueue collection of items
 
-        public string DeQueue()
+        public string DeQueue() //returns and removes the first item in the queue
+        {
+            if(!IsEmpty())
+            {
+                string ret = Head.Next.Data;
+                Head.Next = Head.Next.Next;
+                return ret;
+            }
+            else
+            {
+                throw new Exception("Queue Empty");
+            }
+        }
+
+        public string Peek() //returns the top item on the queue without removing it
+        {
+            if(!IsEmpty())
+            {
+                return Head.Next.Data;
+            }
+            else
+            {
+                throw new Exception("Queue Empty");
+            }
+        }
 
         public override string ToString()
         {
