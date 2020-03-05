@@ -5,106 +5,45 @@ using System.Text;
 
 namespace Graph
 {
-    class Vertex
-    {
-        public string Data;
-        public Dictionary<int, double> Connections;  //Maps graph edges in format Destination : Weight
-
-        public Vertex(string data)
-        {
-            Data = data;
-            Connections = new Dictionary<int, double>();
-        }
-    }
     class Graph
     {
-        //fields
-        public int Size; //number of nodes in the graph
-        public DataStructures.LinkedList<Vertex> verticies;  //Linked list holding all the verticies that make up the graph
+        public Graph() { AdjacencyList = new Dictionary<string, Dictionary<string, float>>(); Count = 0; }
 
-        //classes
-        
-
-        public Graph()
-        {
-            Size = 0;
-            verticies = new DataStructures.LinkedList<Vertex>();
-        }
-
-        //Methods
-        public void AddVertex(string data)  //adds a vertex to the graph
-        {
-            verticies.Add(new Vertex(data));
-            Size++;
-        }
-
-        public void AddConnection(string from, string to, double weight)  //adds a connection to the specified vertex. 
-        {
-            int i = 0;
-            var v = verticies[i];
-            while (v.Data != from && i < verticies.Count)
+        private Dictionary<string, Dictionary<string, float>> AdjacencyList;
+        public int Count { get; set; }
+        public void Add(string Item) {
+            try
             {
-                v = verticies[i];
-                i++;
+                AdjacencyList.Add(Item, new Dictionary<string, float>());
             }
-            v.Connections.Add(GetVertexIndex(to), weight);
-        }
-
-        public int GetVertexIndex(string data) //returns the index in verticies of a given piece of data
-        {
-            int index = -1;
-            for (int i = 0; i < verticies.Count; i++)
+            catch (Exception)
             {
-                if (verticies[i].Data == data)
-                {
-                    index = i;
-                    break;
-                }
+                Console.WriteLine("Error - Node already included in graph");
             }
-            return index;
         }
 
-        public void FindShortestPath(string from, string to)  //dijkstas SPF algorithm, returns shortest path between 2 nodes
-        {
-            double[] dist = new double[verticies.Count];
-            PriorityQueue Q = new PriorityQueue();
-            for (int i = 0; i < verticies.Count; i++)
+        public void AddConnections(params ValueTuple<string,string,float>[] connections) {
+            foreach (var connection in connections)
             {
-                if (verticies.GetItemAt(i).Data != from)
+                if (AdjacencyList.ContainsKey(connection.Item1))
                 {
-                    dist[i] = double.PositiveInfinity ;
-                    Q.EnQueue(verticies.GetItemAt(i).Data, double.PositiveInfinity);
+                    if (AdjacencyList[connection.Item1].ContainsKey(connection.Item2))
+                    {
+                        AdjacencyList[connection.Item1].Remove(connection.Item2);
+                        Console.WriteLine("WARNING - Previous Edge will be Overwritten");
+                    }
+                    AdjacencyList[connection.Item1].Add(connection.Item2, connection.Item3);
                 }
                 else
                 {
-                    dist[i] = 0;
-                    Q.EnQueue(verticies.GetItemAt(i).Data, 0);
-                }
-            }
-
-            while (!Q.IsEmpty())
-            {
-                Vertex u = verticies.GetItemAt(GetVertexIndex(Q.Peek()));
-                foreach (var node in u.Connections.Keys)
-                {
-                    double alt = 
+                    Console.WriteLine("Target Node does not exist");
                 }
             }
         }
 
-        public override string ToString()  //Outputs a string representation of the graph in format {Vertex} --> [{Vertex} : {Weight}]
+        public string[] Neighbours(string Node)
         {
-            string str = "";
-            foreach (var vertex in verticies.ToArray())
-            {
-                str = str + $"{vertex.Data} --> ";
-                foreach (var subVertex in vertex.Connections.Keys)
-                {
-                    str = str + $" [{verticies[subVertex].Data} : {vertex.Connections[subVertex]}] ";
-                }
-                str = str + Environment.NewLine;
-            }
-            return str;
+            return new List<string>(AdjacencyList[Node].Keys).ToArray();
         }
     }
 }

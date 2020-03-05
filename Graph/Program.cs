@@ -46,7 +46,7 @@ namespace Graph
         {
             Graph wallingford = BuildGraph();
             Console.WriteLine(wallingford.ToString());
-            wallingford.FindShortestPath("school", "market");
+// wallingford.FindShortestPath("school", "market");
         }
     }
 }
