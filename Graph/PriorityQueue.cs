@@ -6,16 +6,16 @@ namespace Graph
 { 
     class PriorityQueue
     {
-        public double Count { get; set; }
+        public float Count { get; set; }
         private Node Head;
 
         protected class Node
         {
             public string Data;
             public Node Next;
-            public double Priority;
+            public float Priority;
 
-            public Node(string data, double priority = 0, Node next = null)
+            public Node(string data, float priority = 0, Node next = null)
             {
                 Data = data;
                 Priority = priority;
@@ -41,7 +41,7 @@ namespace Graph
             }
         }
 
-        public void EnQueue(string item, double priority=0)
+        public void EnQueue(string item, float priority=0)
         {
             Node n = Head;
             while (n.Next != null)
@@ -64,7 +64,7 @@ namespace Graph
             Count++;
         }
 
-        public void EnQueue(IEnumerable<string> items, double priority = 0)
+        public void EnQueue(IEnumerable<string> items, float priority = 0)
         {
             foreach (var item in items)
             {
@@ -98,6 +98,20 @@ namespace Graph
             }
         }
 
+        public void UpdatePriority(string data, float new_priority)
+        {
+            Node current_n = Head;
+            Node prev_n = Head;
+            while (current_n.Data != data && current_n.Next != null)
+            {
+                prev_n = current_n;
+                current_n = current_n.Next;
+            }
+            if (current_n.Next == null){return;}
+
+            prev_n.Next = current_n.Next;
+            this.EnQueue(data, new_priority);
+        }
         public override string ToString()
         {
             string str = "";

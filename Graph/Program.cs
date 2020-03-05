@@ -16,36 +16,21 @@ namespace Graph
             g.AddVertex("school");
             
             //connections
-            g.AddConnection("hospital", "hall", 5);
-            g.AddConnection("hospital", "cinema", 2);
-            g.AddConnection("hospital", "post", 1.5);
-            
-            g.AddConnection("post", "hospital", 1.5);
-            g.AddConnection("post", "cinema", 1);
-
-            g.AddConnection("cinema", "hall", 6);
-            g.AddConnection("cinema", "school", 3);
-            g.AddConnection("cinema", "market", 0.5);
-            g.AddConnection("cinema", "post", 1);
-            g.AddConnection("cinema", "hospital", 2);
-
-            g.AddConnection("market", "cinema", 0.5);
-            g.AddConnection("market", "school", 2);
-
-            g.AddConnection("hall", "cinema", 6);
-            g.AddConnection("hall", "school", 4);
-            g.AddConnection("hall", "hospital", 5);
-
-            g.AddConnection("school", "hall", 4);
-            g.AddConnection("school", "cinema", 3);
-            g.AddConnection("school", "market", 2);
+            g.AddConnections("hospital", ("hall", 5), ("cinema", 2), ("post", 1.5f));
+            g.AddConnections("post", ("hospital", 1.5f), ("cinema", 1));
+            g.AddConnections("cinema", ("hall", 6),("school", 3),("market", 0.5f),("post", 1),("hospital", 2));
+            g.AddConnections("market", ("cinema", 0.5f), ("school", 2));
+            g.AddConnections("hall", ("cinema", 6),("school", 4),("hospital", 5));
+            g.AddConnections("school", ("hall", 4),("cinema", 3),("market", 2));
 
             return g;
         }
         static void Main(string[] args)
         {
             Graph wallingford = BuildGraph();
+            Console.WriteLine(wallingford.ValidateGraphCompletedness());
             Console.WriteLine(wallingford.ToString());
+            wallingford.GetShortestPath("hospital", "b");
 // wallingford.FindShortestPath("school", "market");
         }
     }
